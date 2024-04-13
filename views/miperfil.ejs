@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+  
+
+    <body>
+   <!-- ... Otras partes de tu vista ... -->
+<!-- ... Otras partes de tu vista ... -->
+<!-- ... Otras partes de tu vista ... -->
+<!-- ... Otras partes de tu vista ... -->
+
+    <div id="myChart"></div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        var nombresCarreras = <%= JSON.stringify(nombresCarreras) %>;
+
+        var data = [{
+            x: nombresCarreras,
+            y: Array(nombresCarreras.length).fill(1),
+            type: 'bar',
+            marker: {
+                color: 'rgba(75, 192, 192, 0.8)'
+            }
+        }];
+
+        var layout = {
+            title: 'Número de Estudiantes por Carrera'
+        };
+
+        Plotly.newPlot('myChart', data, layout);
+    </script>
+
+</body>
+</html>

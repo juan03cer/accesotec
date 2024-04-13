@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cambiarpassword</title>
+    <link rel="stylesheet" href="public/css/registros.css">
+    <link rel="stylesheet" href="public/css/index.css">
+    <link rel="stylesheet" href="public/css/cambiarpassword.css">
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/eye.css' rel='stylesheet'>
+</head>
+<body class="fondoregistro">
+    
+    
+    <header>
+        <img class="img-letras" src="public/img/letrasutvt.png"> 
+        <nav>
+          
+            <li> 
+                <i class="bi bi-journal-text"></i> </i>
+                <a  class="barraadmin"  href="/">Mi perfil </a>
+            </li>
+            <li>
+                <i class="bi bi-journal-text"></i>
+                <a  class="barraadmin" href="registrar">Registrar Alumno</a>
+            </li>
+            
+            <li>
+                <i class="bi bi-person-lines-fill"></i>
+                <a  class="barraadmin" href="entradas">Ver Entradas</a>
+            </li>
+            <li>
+                <i class="bi bi-person-lines-fill"></i>
+                <a  class="barraadmin" href="registros">Registros</a>
+            </li>
+
+            <li>
+                <i class="bi bi-person-lines-fill"></i>
+                <a  class="barraadmin" href="cambiar-contrasena">Cambiar Contraseña</a>
+            </li>
+           
+        </nav>   
+        <img  style="width: 100px; height: 100px;" src="public/img/logo.jpg"> 
+    </header>
+   
+    <div class="fondoregistro">
+        <div id="formulario-container">
+            
+            <form method="POST" action="/cambiar-contrasena">
+               <h1>Cambiar Contraseña</h1>
+            
+                <label for="correo">Correo Electrónico:</label>
+                <input type="email" id="correo" name="correo" required>
+    
+                <label for="antiguaContrasena">Antigua Contraseña:</label>
+                <input type="password" id="antiguaContrasena" name="antiguaContrasena" required>
+                <i id="mostrarAntiguaContrasena" class="gg-eye" onmousedown="alternarVisibilidadContrasenaa('antiguaContrasena')"
+                 style="position: absolute; top: 53%; transform: translateY(-50%); right: 25px; cursor: pointer;"></i>
+                <i class="gg-eye-off" onmousedown="alternarVisibilidadContrasenaa('antiguaContrasena')"style="display: none;"></i>
+    
+                <label for="nuevaContrasena">Nueva Contraseña:</label>
+                <input type="password" id="nuevaContrasena" name="nuevaContrasena" required>
+                  <i id="mostrarContrasena" class="gg-eye" onmousedown="alternarVisibilidadContrasena()" 
+                  style="position: absolute; top: 72%;  right: 25px; cursor: pointer;"sss></i>
+                <i  class="gg-eye-off" onmousedown="alternarVisibilidadContrasena()" ></i>
+
+    
+                <button type="submit">Restablecer Contraseña</button>
+            </form>
+        </div>
+
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <% if (typeof alert != "undefined")  { %>
+            <script>
+            Swal.fire({
+                title: '<%= alertTitle %>',
+                text: '<%= alertMessage %>',
+                icon: '<%= alertIcon %>',
+                showConfirmButton: <%= showConfirmButton %>,
+                timer: <%= timer %>
+            }).then(() => {
+                window.location = '/<%= ruta %>';
+            });
+            </script>
+        <% } %>
+    
+<script>
+    var intervalo;
+
+    function mostrarContrasena() {
+        var inputContrasena = document.getElementById("nuevaContrasena");
+        var iconoOjo = document.getElementById("mostrarContrasena");
+
+        inputContrasena.type = "text";
+        iconoOjo.classList.add("gg-eye-off");
+
+        intervalo = setInterval(function () {
+            if (!botonMousePresionado()) {
+                ocultarContrasena();
+            }
+        }, 100);
+    }
+ function alternarVisibilidadContrasena() {
+        var inputContrasena = document.getElementById("nuevaContrasena");
+        var iconoOjo = document.getElementById("mostrarContrasena");
+
+        if (inputContrasena.type === "password") {
+            // Si la contraseña está oculta, muéstrala
+            inputContrasena.type = "text";
+            iconoOjo.classList.add("gg-eye-off");
+        } else {
+            // Si la contraseña está visible, ocúltala
+            inputContrasena.type = "password";
+            iconoOjo.classList.remove("gg-eye-off");
+        }
+    }
+</script>
+
+<script>
+    function alternarVisibilidadContrasenaa(idCampo) {
+        var inputContrasena = document.getElementById(idCampo);
+        var iconoOjo = document.getElementById('mostrar' + idCampo);
+
+        if (inputContrasena.type === "password") {
+
+            inputContrasena.type = "text";
+            iconoOjo.classList.add("gg-eye-off");
+        } else {
+            
+            inputContrasena.type = "password";
+            iconoOjo.classList.remove("gg-eye-off");
+        }
+    }
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+.tarjeta {
+    background-color: #3498db; /* Fondo azul */
+    color: #000; /* Texto negro */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+}
+
+    .tarjeta p {
+        margin: 10px 0;
+    }
+
+.sin-datos {
+    color: #888;
+}

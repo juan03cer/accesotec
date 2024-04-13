@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API</title>
+    <link rel="stylesheet" href="public/css/index.css">
+    <link rel="stylesheet" href="public/css/api.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+</head>
+
+<body class="apifond">
+    <header>
+        <nav class="letrasbarra">
+            <img class="img-letras" src="public/img/letrasutvt.png">
+            <ul>
+                <li>
+                    <i class="bi bi-journal-text"></i>
+                    <a class="letrasbarra" href="/">Inicio</a>
+                </li>
+                <li>
+                    <i class="bi bi-journal-text"></i>
+                    <a class="letrasbarra" href="nosotros">Nosotros</a>
+                </li>
+
+                <li>
+                    <i class="bi bi-person-lines-fill"></i>
+                    <a class="letrasbarra" href="api">Api</a>
+                </li>
+                <li>
+                    <i class="bi bi-person-lines-fill"></i>
+                    <a class="letrasbarra" href="redessociales">Redes Sociales</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div>
+        <div class="container">
+            <h2 style="color: rgb(15, 105, 105);">controlacs(API)</h2>
+            <!-- Agrega los enlaces con las rutas de la API -->
+            <a href="api/login">Login</a>
+            <a href="/api/administradores">Administrador</a>
+            <a href="/api/alumnos">Alumno</a>
+            <a href="/accesos">Horas de acceso</a>
+            <a href="api/alumnos/total-por-carrera">Gráfica</a>
+            <a href="/api/alumno/:id/historial">Historial de acceso por ID de alumno</a>
+            <a href="/api/alumno/:id/detalles">Detalles de alumno por ID</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfica de Pastel</title>
+    <!-- Agrega la referencia a Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Gráfica de Pastel</h1>
+    <p>Total de alumnos registrados: <%= totalAlumnos %></p>
+    <canvas id="grafica"></canvas>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Recupera el total de alumnos de la vista
+            const totalAlumnos = <%= totalAlumnos %>;
+
+            // Configura la gráfica de pastel
+            const ctx = document.getElementById('grafica').getContext('2d');
+            const grafica = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Alumnos Registrados', 'Otros'],
+                    datasets: [{
+                        data: [totalAlumnos, 0],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(255, 255, 255, 0.7)', // Color para la porción "Otros"
+                        ],
+                    }],
+                },
+            });
+        });
+    </script>
+</body>
+</html>

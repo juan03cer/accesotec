@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distancia RFID</title>
+</head>
+<body>
+
+    <!-- Mostrar el UID de la tarjeta RFID -->
+   <!-- Agrega este bloque donde quieras mostrar el UID -->
+<div>
+  <h2>UID Actual</h2>
+  <% if (idTarjetaWiFi) { %>
+    <p>UID: <%= idTarjetaWiFi.uid %></p>
+  <% } else { %>
+    <p>Sin datos de UID</p>
+  <% } %>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+.perfil-container {
+    max-width: 600px;
+    position: fixed;
+    top: 100px;
+    left: 0;
+    margin: 50px 50px 0 50px; /* Ajusta el margen para separación desde la parte superior y la izquierda */
+    padding: 70px;
+    background-color: #333; /* Fondo gris oscuro */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 500px;
+}
+
+.perfil-info {
+   
+}
+
+.foto-perfil {
+    margin-top: -1px; /* Ajusta la separación desde la parte superior */
+    border-radius: 50%;
+    overflow: hidden;
+    text-align: center; /* Centra la imagen horizontalmente */
+}
+
+.foto-perfil img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto; 
+}

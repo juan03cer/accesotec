@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entradas</title>
+    <link rel="stylesheet" href="public/css/registros.css">
+    <link rel="stylesheet" href="public/css/index.css">
+    <link rel="stylesheet" href="public/css/entrada.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+<body class="fondoregistro">
+    
+    <header>
+        <img class="img-letras" src="public/img/letrasutvt.png"> 
+        <nav>
+            <li> 
+                <i class="bi bi-journal-text"></i> </i>
+                <a class="barraadmin" href="/">Mi perfil</a>
+            </li>
+            <li>
+                <i class="bi bi-journal-text"></i>
+                <a class="barraadmin" href="registrar">Registrar Alumno</a>
+            </li>
+            <li>
+                <i class="bi bi-person-lines-fill"></i>
+                <a class="barraadmin" href="entradas">Ver Entradas</a>
+            </li>
+            <li>
+                <i class="bi bi-person-lines-fill"></i>
+                <a class="barraadmin" href="registros">Registros</a>
+            </li>
+            <li>
+                <i class="bi bi-person-lines-fill"></i>
+                <a class="barraadmin" href="cambiar-contrasena">Cambiar Contraseña</a>
+            </li>
+        </nav>   
+        <img style="width: 100px; height: 100px;" src="public/img/logo.jpg"> 
+    </header>
+   
+    <div class="tarjeta">
+        <h2 style="color: black">ID de tarjeta WiFi: <%= idTarjetaWiFi %></h2>
+        
+        <img style="height: 120px; width: 120px;" src="public/img/alumnos/<%= emitirDatosAlumno ? emitirDatosAlumno.foto : 'Sin datos' %>" alt="Sin foto para mostrar no ahi datos">
+        <% if (emitirDatosAlumno) { %>
+            <h4>Datos del alumno:</h4>
+            <p>Nombre: <%= emitirDatosAlumno.nombre %></p>
+            <p>Apellido: <%= emitirDatosAlumno.lastname %></p>
+            <p>Correo: <%= emitirDatosAlumno.correo %></p>
+            <p>Matricula: <%= emitirDatosAlumno.matricula %></p>
+            <p>Carrera: <%= emitirDatosAlumno.carrera %></p> 
+        <% } else { %>
+            <p>No hay datos de alumno</p>
+        <% } %>
+        <button class="submit-button" id="botonRecargaYRegistro">Recargar Página</button>
+    </div>
+
+    <form id="formularioAlumnos" action="/entradas" method="post" class="form-container"  style="position: absolute; left: -9999px;">
+        <div class="form-group">
+            <i class="icon"></i>
+            <input type="text" name="idtarjeta" class="input-field" value="<%= idTarjetaWiFi %>" required>
+            <span class="label" id="idtarjeta">ID tarjeta</span>
+        </div>
+        <button type="submit" class="submit-button">Registrar</button>
+    </form>
+
+    <script>
+        document.getElementById('botonRecargaYRegistro').addEventListener('click', () => {
+            const inputField = document.querySelector('.input-field');
+            if (inputField.value.trim() === '') {
+                location.reload();
+            } else {
+                document.getElementById('formularioAlumnos').submit();
+            }
+        });
+    </script>
+
+    <script>
+        const socket = io();
+        socket.on('connect', () => {
+            console.log('Conectado al servidor de WebSocket');
+        });
+
+        socket.on('idTarjetaWiFi', (newId) => {
+            try {
+                console.log('Nuevo ID recibido:', newId);
+                document.getElementById('idtarjeta').value = newId || '';
+            } catch (error) {
+                console.error('Error al actualizar el campo:', error);
+            }
+        });
+    </script>
+
+</body>
+</html>

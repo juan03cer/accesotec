@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="public/css/registros.css">
+    <link rel="stylesheet" href="public/css/index.css">
+    <link rel="stylesheet" href="public/css/perfil.css">
+    
+
+</head>
+<body class="fondoregistro">
+    
+    <header>
+        <img class="img-letras" src="public/img/letrasutvt.png"> 
+        <nav>
+            
+           <h3><strong>Bienvenido: <%= nombre %></strong> </h3>
+            <li> 
+                <i class="bi bi-journal-text"></i> </i>
+                <a  class="barraadmin"  href="/">Mi perfil </a>
+            </li>
+            <li>
+                <i class="bi bi-journal-text"></i>
+                <a  class="barraadmin" href="registrar">Registrar Alumno</a>
+            </li>
+            
+            <li>
+                <i class="bi bi-person-lines-fill"></i>
+                <a  class="barraadmin" href="entradas">Ver Entradas</a>
+            </li>
+            <li>
+                <i class="bi bi-person-lines-fill"></i>
+                <a  class="barraadmin" href="registros">Registros</a>
+            </li>
+
+            <li>
+                <i class="bi bi-person-lines-fill"></i>
+                <a  class="barraadmin" href="cambiar-contrasena">Cambiar Contraseña</a>
+            </li>
+            
+            
+        </nav>   
+        <p 
+<% if(login){ %>
+<h1 class="cerrarsesion"> </h1>
+<a class="botoncerrar"href="logout"> <strong>Cerrar sesion</strong></a>
+<%} else{ %>
+    <h1 ><strong><%= nombre %></strong></h1>
+
+<% } %></p>
+</header>
+
+<div class="perfil-container">
+    <h2>Mi perfil</h2>
+    <div class="perfil-info">
+        <% if (login && foto) { %> 
+           
+            <div class="foto-perfil">
+                <p>Mi foto </p> 
+                <img src="<%= foto %>" alt="Foto de perfil">
+               
+            </div>
+            <h4>Nombre:</h4> <p><%= nombre %></p><br>
+            <h4>Apellidos:</h4><p><%= lastname %></p><br>
+            <h4>Correo</h4><p><%= correo %></p><br>
+            <h4>Clave de empleado</h4><p><%= claveempleado %></p>
+        <% } %>
+    </div>
+
+</div> 
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   
+   
+   <div style="width:400px; height:400px; margin-left: 570px; margin-bottom: 50px;">
+<canvas id="myChart"></canvas>
+</div>
+
+<script>
+  console.log("HOLA DESDE LA CONSOLA")
+  var carreras = <%- JSON.stringify(carreras) %>;
+  console.log(carreras);
+
+  // Extract the carrera names and counts
+  const carreraNames = carreras.map(carrera => carrera.nombre);
+  const carreraCounts = carreras.map(carrera => carrera.num_alumnos);
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'pie', 
+    data: {
+      labels: carreraNames,
+      datasets: [{
+        label: 'Alumnos Registrados en Esta carrera:',
+        data: carreraCounts,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+         
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+          
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+     
+    }
+  });
+</script>
+<div style="width: 600px; height: 400px; margin: 20px; margin-bottom: -10px;">
+    <canvas id="chartEntradasDiaHora"></canvas>
+</div>
+
+<script>
+    fetch('/entradasPorDiaYHora')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+            var fechas = data.map(entrada => entrada.fecha.split('T')[0]);
+            var horas = data.map(entrada => entrada.hora);
+            var cantidades = data.map(entrada => entrada.cantidad);
+
+            var ctx = document.getElementById('chartEntradasDiaHora').getContext('2d');
+            var chartEntradasDiaHora = new Chart(ctx, {
+                type: 'line', 
+                data: {
+                    labels: fechas.map((fecha, index) => fecha + ' ' + horas[index] + ':00'),
+                    datasets: [{
+                        label: 'Entradas por Día y Hora',
+                        data: cantidades,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error al obtener datos de entradas por día y hora:', error));
+</script>
+
+ 
+</body>
+</html>
+
+
+
